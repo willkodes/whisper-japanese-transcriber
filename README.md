@@ -39,6 +39,19 @@ This script is best used for transcribing natural Japanese speech, such as in mo
 
 ---
 
+## 📊 Findings (Preliminary)
+
+In practical testing across various Japanese audio and video sources (including movies and YouTube content), this script demonstrated a **significant improvement** in transcription quality compared to standard Whisper.
+
+### Observed improvements:
+- ✅ **Increased subtitle coverage**: Estimated **90–100%** subtitle generation across tested clips, including lines Whisper previously skipped.
+- 🧠 **Fewer hallucinations**: Markedly fewer hallucinated or repeated phrases.
+- 🔊 **Improved clarity**: Audio preprocessing resulted in more consistent recognition, especially in noisy or low-volume recordings.
+
+> ⚠️ These findings are based on observational comparison and not yet backed by formal WER/CER testing or large-scale benchmarking. Scientific validation is encouraged for objective measurement of accuracy improvements.
+
+---
+
 ## 📦 Requirements
 
 * Python 3.8+
