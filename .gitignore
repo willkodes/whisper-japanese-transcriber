@@ -1,0 +1,28 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment Folders (if any)
+venv/
+env/
+.venv/
+
+# Transcript Files
+*.srt
+*.txt
+
+# Audio Files
+*_clean.wav
+*.wav
+*.mp3
+*.mp4
+*.mkv
+*.flac
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

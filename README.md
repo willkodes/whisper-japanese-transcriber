@@ -6,6 +6,10 @@ It preprocesses the audio to reduce background noise, boost clarity, and outputs
 
 ---
 
+<p align="center">
+  <img src="assets/demo.gif" width="600">
+</p>
+
 ## 🧐 The Problem
 
 Generating transcripts using regular Whisper can often be inaccurate or ineffective. Sometimes Whisper hallucinates, repeats words or phrases, or fails to generate subtitles—even when the audio is clear and there’s minimal background noise.

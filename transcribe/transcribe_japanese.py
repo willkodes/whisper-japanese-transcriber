@@ -42,10 +42,7 @@ def transcribe_to_srt(audio_path, output_srt, output_txt=None, beam_size=None, b
     except Exception as e:
         sys.exit(f"❌ Failed to load Whisper model: {e}")
 
-    if beam_size:  # beam search mode
-        temperature = 0.0
-    else:          # greedy + best_of
-        temperature = 0.3
+    temperature = 0.0 if beam_size else 0.3
 
     print("📖 Transcribing...")
     try:
@@ -96,9 +93,9 @@ def transcribe_to_srt(audio_path, output_srt, output_txt=None, beam_size=None, b
                 txt_file.close()
 
         print(f"📏 Transcribed {segment_index - 1} segments over {result['segments'][-1]['end']:.2f} seconds")
-        print(f"💾 Saving {output_srt} to '{os.path.abspath(output_srt)}'")
+        print(f"💾 Saved {output_srt}")
         if output_txt:
-            print(f"💾 Saving {output_txt} to '{os.path.abspath(output_txt)}'")
+            print(f"💾 Saved {output_txt}")
     except Exception as e:
         sys.exit(f"❌ Failed to write output files: {e}")
 
@@ -108,6 +105,7 @@ def main():
     )
     parser.add_argument("input_file", help="Path to video or audio file (e.g., .mp4, .mkv, .mp3)")
     parser.add_argument("--txt", action="store_true", help="Also output a plain .txt transcript")
+    parser.add_argument("--outdir", default=".", help="Directory to save output files (default: current directory)")
     parser.add_argument(
         "--mode", choices=["fast", "balanced", "accurate"], default="balanced",
         help="Transcription mode: fast (no beam), balanced (beam=2), accurate (beam=5)"
@@ -118,6 +116,12 @@ def main():
 
     if not os.path.exists(input_file):
         sys.exit(f"❌ File not found: {input_file}")
+
+    if not os.path.exists(args.outdir):
+        try:
+            os.makedirs(args.outdir)
+        except Exception as e:
+            sys.exit(f"❌ Failed to create output directory: {e}")
 
     # Beam search settings based on mode
     if args.mode == "fast":
@@ -134,9 +138,9 @@ def main():
         best_of = None
 
     base = os.path.splitext(os.path.basename(input_file))[0]
-    cleaned_wav = f"{base}_clean.wav"
-    output_srt = f"{base}_ja.srt"
-    output_txt = f"{base}_ja.txt" if args.txt else None
+    cleaned_wav = os.path.join(args.outdir, f"{base}_clean.wav")
+    output_srt = os.path.join(args.outdir, f"{base}_ja.srt")
+    output_txt = os.path.join(args.outdir, f"{base}_ja.txt") if args.txt else None
 
     check_ffmpeg()
     preprocess_audio(input_file, cleaned_wav)
@@ -153,7 +157,6 @@ def main():
         if os.path.exists(cleaned_wav):
             os.remove(cleaned_wav)
             print(f"🗑️ Deleted temporary file: {cleaned_wav}")
-
 
 if __name__ == "__main__":
     main()
