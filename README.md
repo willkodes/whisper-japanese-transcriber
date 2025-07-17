@@ -33,6 +33,18 @@ This script addresses that by using `ffmpeg` to enhance audio quality before tra
 
 ---
 
+## 🖥️ Hardware & Performance Notes
+
+This script uses OpenAI’s Whisper model for transcription, which can run on both CPU and NVIDIA GPUs with CUDA support.
+
+- **NVIDIA GPU (CUDA)**: If you have a compatible NVIDIA GPU, Whisper will utilize GPU acceleration for significantly faster transcription.
+- **CPU-only or AMD/Intel GPU**: The script works perfectly on CPU without GPU acceleration, but transcription will be slower, especially with larger models like `large-v3`.
+- For faster performance on CPU-only machines, consider using smaller Whisper models (`tiny`, `base`, or `small`) or selecting the `fast` transcription mode.
+- An alternative implementation like [Faster Whisper](https://github.com/guillaumekln/faster-whisper) can provide improved speed on CUDA GPUs but is not officially integrated here.
+- GPU acceleration is currently limited to NVIDIA CUDA-enabled hardware; AMD and Intel GPUs are not supported for acceleration in Whisper.
+
+---
+
 ## 🎯 Intended Use
 
 This script is best used for transcribing natural Japanese speech, such as in movies and YouTube videos. Note that anime may result in hallucinations or reduced accuracy due to its unique intonations and often exaggerated speech patterns—Whisper was primarily trained on natural conversational speech.
@@ -52,10 +64,28 @@ In practical testing across various Japanese audio and video sources (including 
 
 ---
 
+## 🛠 Installation
+
+To get started quickly, install Python dependencies and FFmpeg:
+
+```bash
+pip install -r requirements.txt
+````
+
+FFmpeg is required for audio preprocessing. For installation instructions, see:
+[FFmpeg Installation Guide](https://ffmpeg.org/download.html)
+
+---
+
+For a complete step-by-step setup guide from a fresh PC—including installing Python, VS Code, Git, and FFmpeg—please visit the full installation guide:
+[Full Installation Guide](https://your-google-doc-link)
+
+---
+
 ## 📦 Requirements
 
 * Python 3.8+
-* [`ffmpeg`](https://ffmpeg.org/download.html) (must be installed and accessible via your system's PATH)
+* `ffmpeg`
 * Python packages:
   * `whisper`
   * `ffmpeg-python`
